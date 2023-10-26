@@ -7,5 +7,5 @@ e.g., Turtle Crossing (tools: Python)
 ### Statistics
 Volleyball V-league Championship (tools: R, Rmarkdown)
 ### Exploratory Data Analysis 
-PSet1_2023-09-08_Hanlin Chen (tools: Python, Jupyter Notebook), PSet4_2023-09-29_HC.ipynb (tools: Python, Jupyter Notebook)
+PSet1_2023-09-08 (tools: Python, Jupyter Notebook), PSet4_2023-09-29 (tools: Python, Jupyter Notebook)
 
