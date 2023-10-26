@@ -1,0 +1,442 @@
+---
+title: "HW3"
+output: html_document
+date: "2023-10-04"
+---
+## Question 1
+### Paths
+If A wins the game, there are 10 different paths for A to win.
+I assume that the outcome of one path doesn't influence or depend on any other path.
+
+#### Path type 1- A wins all the first three sets and game ends 
+1. A wins set 1, set 2, set 3
+
+#### Path type 2- A wins three sets out of the first four sets and game ends 
+1. A wins set 1, set 2, set 4
+2. A wins set 1, set 3, set 4
+3. A wins set 2, set 3, set 4
+
+#### Path type 3- A wins three sets out of the five sets 
+1. A wins set 1, set 2, set 5
+2. A wins set 1, set 3, set 5
+3. A wins set 1, set 4, set 5
+4. A wins set 2, set 3, set 5
+5. A wins set 2, set 4, set 5
+6. A wins set 3, set 4, set 5
+
+### Probability of following each path to win 
+From \(P_A=0.6\) (which is the probability that team A wins a set), we know \(P_B=1-0.6=0.4\) (which is the probability that team B wins a set). I assume that both of the probabilities are constant and following any specific path is independent of the other paths.
+
+#### For following any path from path type 1 to win
+A wins the first 3 sets. The probability is \(0.6^3*0.4^0\)
+
+#### For following any path from path type 2 to win
+A wins 3 sets out of the first 4 sets, which means B wins 1 set.The probability is \(0.6^3*0.4^1\)
+
+#### For following any path from path type 3 to win
+A wins 3 sets out of the 5 sets, which means B wins 2 sets. The probability is \(0.6^3 *0.4^2 \)
+
+### Overall Probability 
+The total probability is \(0.6^3*0.4^0*1+0.6^3*0.4^1*3+0.6^3 *0.4^2*6=0.68256\)
+
+```{r}
+y <- 0.6^3 * 0.4^0 * 1 + 
+     0.6^3 * 0.4^1 * 3 + 
+     0.6^3 * 0.4^2 * 6
+print(y)
+```
+
+## Question 2
+Before that, we need to know the probability that B wins the first game. Similar to question 1:
+```{r}
+y <- 0.4^3 * 0.6^0 * 1 + 
+     0.4^3 * 0.6^1 * 3 + 
+     0.4^3 * 0.6^2 * 6
+print(y)
+```
+### Paths
+If A wins the championship, there are 10 different paths for A to win. 
+I assume that the outcome of one path doesn't influence or depend on any other path.
+
+#### Path type 1- A wins all the first three games
+1. A wins game 1, game 2, game 3
+
+#### Path type 2- A wins three out of the first four games
+1. A wins game 1, game 2, game 4
+2. A wins game 1, game 3, game 4
+3. A wins game 2, game 3, game 4
+
+#### Path type 3- A wins three out of the five games 
+1. A wins game 1, game 2, game 5
+2. A wins game 1, game 3, game 5
+3. A wins game 1, game 4, game 5
+4. A wins game 2, game 3, game 5
+5. A wins game 2, game 4, game 5
+6. A wins game 3, game 4, game 5
+
+We know the probability that A wins a game is \( 0.68256\) and the probability that B wins a game is \( 0.31744\) 
+
+#### For following any path from path type 1 to win
+A wins the first 3 games. The probability is \(0.68256^3\)
+
+#### For following any path from path type 2 to win
+A wins 3 sets out of the first 4 games, which means B wins 1 game. The probability is \(0.68256^3*0.31744^1\)
+
+#### For following any path from path type 3 to win
+A wins 3 sets out of the 5 games, which means B wins 2 games. The probability is \(0.68256^3 *0.31744^2 \)
+
+### Overall Probability
+The overall probability is: 
+```{r}
+y <- 0.68256^3 * 1 + 
+     0.68256^3 * 0.31744^1 * 3 + 
+     0.68256^3 * 0.31744^2 * 6
+print(y)
+```
+
+## Question 3
+### Calculate the probability that A wins a game
+If A wins the game, there are 10 different paths for A to win. 
+
+#### Path type 1- A wins all the first three sets and game ends 
+1. A wins set 1, set 2, set 3
+
+#### Path type 2- A wins three sets out of the first four sets and game ends 
+1. A wins set 1, set 2, set 4
+2. A wins set 1, set 3, set 4
+3. A wins set 2, set 3, set 4
+
+#### Path type 3- A wins three sets out of the five sets 
+1. A wins set 1, set 2, set 5
+2. A wins set 1, set 3, set 5
+3. A wins set 1, set 4, set 5
+4. A wins set 2, set 3, set 5
+5. A wins set 2, set 4, set 5
+6. A wins set 3, set 4, set 5
+
+#### For following any path from path type 1 to win
+A wins the first 3 sets.The probability is \(X^3*(1-X)^0\)
+
+#### For following any path from path type 2 to win
+A wins 3 sets out of the first 4 sets, which means B wins 1 set.The probability is \(X^3*(1-X)^1\)
+
+#### For following any path from path type 3 to win
+A wins 3 sets out of the 5 sets, which means B wins 2 sets. The probability is \(X^3 *(1-X)^2 \)
+
+#### Overall Probability
+The total probability a is:
+```{r}
+a <- function(x){
+  return(x^3 * (1-x)^0 * 1 + x^3 * (1-x)^1 * 3+ x^3 * (1-x)^2 * 6)
+}
+```
+
+### Calculate the probability that B wins a game
+If B wins the game, there are 10 different paths for B to win. 
+
+#### Path type 1- B wins all the first three sets and game ends 
+1. B wins set 1, set 2, set 3
+
+#### Path type 2- B wins three sets out of the first four sets and game ends 
+1. B wins set 1, set 2, set 4
+2. B wins set 1, set 3, set 4
+3. B wins set 2, set 3, set 4
+
+#### Path type 3- B wins three sets out of the five sets 
+1. B wins set 1, set 2, set 5
+2. B wins set 1, set 3, set 5
+3. B wins set 1, set 4, set 5
+4. B wins set 2, set 3, set 5
+5. B wins set 2, set 4, set 5
+6. B wins set 3, set 4, set 5
+
+#### For following any path from path type 1 to win
+B wins the first 3 sets.The probability is \((1-X)^3*X^0\)
+
+#### For following any path from path type 2 to win
+B wins 3 sets out of the first 4 sets, which means A wins 1 set.The probability is \((1-X)^3*X^1\)
+
+#### For following any path from path type 3 to win
+B wins 3 sets out of the 5 sets, which means A wins 2 sets. The probability is \((1-X)^3 *X^2 \)
+
+#### Overall Probability
+The total probability b is:
+```{r}
+b <- function(x){
+  return((1-x)^3 * x^0 * 1+ (1-x)^3 * x^1 * 3+ (1-x)^3 * x^2 * 6)
+}
+```
+
+#### Calculate the probability that A wins the championship 
+If A wins the championship, there are 10 different paths for A to win. 
+
+#### Path type 1- A wins all the first three games
+1. A wins game 1, game 2, game 3
+
+#### Path type 2- A wins three out of the first four games
+1. A wins game 1, game 2, game 4
+2. A wins game 1, game 3, game 4
+3. A wins game 2, game 3, game 4
+
+#### Path type 3- A wins three out of the five games 
+1. A wins game 1, game 2, game 5
+2. A wins game 1, game 3, game 5
+3. A wins game 1, game 4, game 5
+4. A wins game 2, game 3, game 5
+5. A wins game 2, game 4, game 5
+6. A wins game 3, game 4, game 5
+
+The probability that A wins the game is a. The probability that B wins the game is b. 
+
+#### For following any path from path type 1 to win
+A wins the first 3 games.The probability is \(a^3\)
+
+#### For following any path from path type 2 to win
+A wins 3 games out of the first 4 games, which means B wins 1 game. The probability is \(a^3*b^1\)
+
+#### For following any path from path type 3 to win
+A wins 3 games out of the 5 games, which means B wins 2 games. The probability is \(a^3 *b^2 \)
+
+### Overall Probability
+The overall probability is: 
+
+```{r}
+a <- function(x){
+  return(x^3 * (1-x)^0 * 1 + x^3 * (1-x)^1 * 3+ x^3 * (1-x)^2 * 6)
+}
+
+b <- function(x){
+  return((1-x)^3 * x^0 * 1+ (1-x)^3 * x^1 * 3+ (1-x)^3 * x^2 * 6)
+}
+
+y <- function(x){
+  return(a(x)^3 * b(x)^0 * 1 + a(x)^3 * b(x)^1 * 3 + a(x)^3 * b(x)^2 * 6)
+}
+
+x_values <- seq(0,1, by=0.01)
+y_values <- sapply(x_values,y)
+
+plot(x_values,y_values,main="Probability that A Wins the Championship",xlab="Probability that A Wins in any Given Set",ylab="Probability that A Wins the Championship")
+```
+
+## Question 4
+### Interpreting what we need to do using Bayes Law 
+\[P(P_B=0.55|\text{Team A wins the championship}) = \frac{P(\text{Team A wins the championship})|P_B=0.55) \times P(P_B=0.55)}{P(\text{Team A wins the championship})}\]
+
+### Probability that team A wins the championship
+The assumption is either \( P_B=0.55\) or \( P_B=0.65\); therefore, there are two scenarios. The possibility of each one is 0.5.
+
+#### Scenario 1
+If \( P_B=0.55\), then \( P_A=0.45\)
+The possibility that A wins the championship is \(0.3293834\)
+
+```{r}
+a <- function(x){
+  return(x^3 * (1-x)^0 * 1 + x^3 * (1-x)^1 * 3+ x^3 * (1-x)^2 * 6)
+}
+
+b <- function(x){
+  return((1-x)^3 * x^0 * 1+ (1-x)^3 * x^1 * 3+ (1-x)^3 * x^2 * 6)
+}
+
+y <- function(x){
+  return(a(x)^3 * b(x)^0 * 1 + a(x)^3 * b(x)^1 * 3 + a(x)^3 * b(x)^2 * 6)
+}
+
+y(0.45)
+```
+
+#### Scenario 2
+If \( P_B=0.65\), then \( P_A=0.35\)
+The possibility that A wins the championship is \( 0.08849626\)
+
+```{r}
+a <- function(x){
+  return(x^3 * (1-x)^0 * 1 + x^3 * (1-x)^1 * 3+ x^3 * (1-x)^2 * 6)
+}
+
+b <- function(x){
+  return((1-x)^3 * x^0 * 1+ (1-x)^3 * x^1 * 3+ (1-x)^3 * x^2 * 6)
+}
+
+y <- function(x){
+  return(a(x)^3 * b(x)^0 * 1 + a(x)^3 * b(x)^1 * 3 + a(x)^3 * b(x)^2 * 6)
+}
+
+y(0.35)
+```
+#### Overall Probability
+The possibility for both of the two scenarios is 0.5; therefore, the overall probability that team A wins the championship is
+```{r}
+0.5 * 0.3293834 + 0.5 * 0.08849626
+```
+
+### Interpreting what we need to do using Bayes Law- Continue 
+\[P(P_B=0.55|\text{Team A wins the championship}) = \frac{P(\text{Team A wins the championship})|P_B=0.55) \times P(P_B=0.55)}{P(\text{Team A wins the championship})}=\frac{0.3293834 \times0.5}{0.2089398}=0.7882256\]
+```{r}
+0.3293834 * 0.5/ 0.2089398
+```
+
+## Question 5
+If \( P_A=0.55\), then \( P_A=0.45\).
+Let's say the length is \( 2k+1,k∈Z+\)
+
+### If we assume each game has (2k+1) sets:  
+### When k = 1, length is 3:
+The probability that Team A wins a game is \({2 \choose 2} * 0.55^2 * 0.45^0 + {2 \choose 1} * 0.55^2 * 0.45^1\)  
+1. \({2 \choose 2} * 0.55^2 * 0.45^0 \) is the total probability for following any paths in path type 1: A wins all the first two sets and game ends; \( {2 \choose 2}\) is the number of paths for this type.     
+2. \({2 \choose 1} * 0.55^2 * 0.45^1 \) is the total probability for following any paths in path type 2: A and B wins half of the first two sets and A wins the last set; \( {2 \choose 1}\) is the number of paths for this type.   
+
+### When k = 2, length is 5:
+The probability that Team A wins a game is \({3 \choose 3} * 0.55^3 * 0.45^0 + {3 \choose 2} * 0.55^3 * 0.45^1 + {4 \choose 2} * 0.55^3 * 0.45^2\)    
+1. \({3 \choose 3} * 0.55^3 * 0.45^0 \) is the total probability for following any paths in path type 1: A wins all the first three sets and game ends; \( {3 \choose 3}\) is the number of paths for this type.   
+2. \({3 \choose 2} * 0.55^3 * 0.45^1 \) is the total probability for following any paths in path type 2: A wins three out of the first four sets; \( {3 \choose 2}\) is the number of paths for this type.   
+3. \({4 \choose 2} * 0.55^3 * 0.45^2 \) is the total probability for following any paths in path type 3: A and B wins half of the first four sets and A wins the last set; \( {4 \choose 2}\) is the number of paths for this type.   
+
+### When k = 3, length is 7:
+The probability that Team A wins a game is \({4 \choose 4} * 0.55^4 * 0.45^0 + {4 \choose 3} * 0.55^4 * 0.45^1 + {5 \choose 3} * 0.55^4 * 0.45^2 +  {6 \choose 3} * 0.55^4 * 0.45^3\)  
+1. \({4 \choose 4} * 0.55^4 * 0.45^0 \) is the total probability for following any paths in path type 1: A wins all the first four sets and game ends; \( {4 \choose 4}\) is the number of paths for this type.   
+2. \({4 \choose 3} * 0.55^4 * 0.45^1 \) is the total probability for following any paths in path type 2: A wins four out of the first five sets; \( {4 \choose 3}\) is the number of paths for this type.   
+3. \({5 \choose 3} * 0.55^4 * 0.45^2 \) is the total probability for following any paths in path type 3: A wins four out of the first six sets; \( {5 \choose 3}\) is the number of paths for this type.   
+4. \({6 \choose 3} * 0.55^4 * 0.45^3 \) is the total probability for following any paths in path type 4: A and B wins half of the first six sets and A wins the last set; \( {6 \choose 3}\) is the number of paths for this type.     
+
+### To sum, when length is 2k + 1 
+The probability that Team A wins a game is \({k+1 \choose k+1} * 0.55^{k+1}* 0.45^0 + {k+1 \choose k} * 0.55^{k+1} * 0.45^1 + {k+2 \choose k} * 0.55^{k+1} * 0.45^2 + ... + {2k \choose k} * 0.55^{k+1} * 0.45^k \)
+
+```{r}
+c <- function(k) {
+  sum_term <- 0
+  
+  for (i in 0:k) {
+    sum_term <- sum_term + choose(k + i, k) * 0.55^(k+1) * 0.45^i
+  }
+  
+  return(sum_term)
+}
+c(2) #test 
+
+```
+We only need to replace 0.55 with 0.45 to get the probability that Team B wins a game: 
+```{r}
+d <- function(k) {
+  sum_term <- 0
+  
+  for (i in 0:k) {
+    sum_term <- sum_term + choose(k + i, k) * 0.45^(k+1) * 0.55^i
+  }
+  
+  return(sum_term)
+}
+d(2) #test 
+```
+
+We only need to replace 0.55 with c(k) (the probability that Team A wins a game) to get the probability that Team A wins a champion: 
+```{r}
+c <- function(k) {
+  sum_term <- 0
+  
+  for (i in 0:k) {
+    sum_term <- sum_term + choose(k + i, k) * 0.55^(k+1) * 0.45^i
+  }
+  
+  return(sum_term)
+}
+
+d <- function(k) {
+  sum_term <- 0
+  
+  for (i in 0:k) {
+    sum_term <- sum_term + choose(k + i, k) * 0.45^(k+1) * 0.55^i
+  }
+  
+  return(sum_term)
+}
+
+e <- function(k) {
+  sum_term <- 0
+  
+  for (i in 0:k) {
+    sum_term <- sum_term + choose(k + i, k) * c(k)^(k+1) * d(k)^i
+  }
+  
+  return(sum_term)
+}
+e(5) #test 
+```
+
+Therefore, if we want e(k)>=0.85
+```{r}
+c <- function(k) {
+  sum_term <- 0
+  
+  for (i in 0:k) {
+    sum_term <- sum_term + choose(k + i, k) * 0.55^(k+1) * 0.45^i
+  }
+  
+  return(sum_term)
+}
+
+d <- function(k) {
+  sum_term <- 0
+  
+  for (i in 0:k) {
+    sum_term <- sum_term + choose(k + i, k) * 0.45^(k+1) * 0.55^i
+  }
+  
+  return(sum_term)
+}
+
+e <- function(k) {
+  sum_term <- 0
+  
+  for (i in 0:k) {
+    sum_term <- sum_term + choose(k + i, k) * c(k)^(k+1) * d(k)^i
+  }
+  
+  return(sum_term)
+}
+
+k <- 1
+while (e(k) < 0.85) {
+  k <- k + 1
+}
+
+print(k)
+```
+The shortest final series length will be \(2*6+1 = 13\)
+
+### If we assume each game has 5 sets: 
+The possibility that A wins the game is \( 0.5931269\)
+```{r}
+a <- function(x){
+  return(x^3 * (1-x)^0 * 1 + x^3 * (1-x)^1 * 3+ x^3 * (1-x)^2 * 6)
+}
+
+a(0.55)
+```
+The possibility that B wins the game is \( 0.4068731\)
+```{r}
+b <- function(x){
+  return((1-x)^3 * x^0 * 1+ (1-x)^3 * x^1 * 3+ (1-x)^3 * x^2 * 6)
+}
+
+b(0.55)
+```
+Therefore, if we want g(k)>=0.85
+```{r}
+g <- function(k) {
+  sum <- 0
+  for (i in 0:k) {
+    sum <- sum + choose(k + i, k) * 0.5931269^(k+1) * 0.4068731^i
+  }
+  return(sum)
+}
+
+k <- 1
+while (g(k) < 0.85) {
+  k <- k + 1
+}
+
+print(k)
+```
+The shortest final series length will be \(2*15+1 = 31\)
